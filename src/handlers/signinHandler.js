@@ -13,7 +13,6 @@ async function signinHandle(user, password){
 
         const resp = await User.findOne({ whatsapp })
         .then(async(user) => {
-            //if user not exist than return status 400
             if (!user){
 
                 return {status: 404, body: "Not Found"};
