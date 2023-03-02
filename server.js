@@ -18,7 +18,9 @@ app.post("/signin", async (req, res) => {
 
     const {user, password} = req.body;
     const resp = await signinHandler(user, password);
-    res.status(resp.status).json(resp.body);
+    const message = resp.message;
+    const token = resp.token;
+    res.status(resp.status).json({message, token});
 
 });
 
@@ -28,7 +30,7 @@ app.post("/signup", async (req, res) => {
     
         const data = {name, email, whatsapp, ownerof, password, confirmPassword};
         let resp = await signupHandler(data);
-        res.status(resp.status).json(resp.body);
+        res.status(resp.status).json(resp.message);
     
 });
 

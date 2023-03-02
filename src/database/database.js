@@ -7,7 +7,7 @@ const databaseConnection = async () => {
         mongoose.connect("mongodb+srv://Ganji:Ganji01011010.@gevape.h5jorsg.mongodb.net/?retryWrites=true&w=majority", {
             useUnifiedTopology: true,
             useNewUrlParser: true
-        })
+        });
 
     } catch(error) {
 
