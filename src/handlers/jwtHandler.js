@@ -1,7 +1,6 @@
 const jwt = require("jsonwebtoken");
 const JWTSecret = "GabrieGanji01";
 
-const jwtUser = require("../database/models/jwtUser");
 const User = require("../database/models/User");
 
 async function jwtGenerator(email) {

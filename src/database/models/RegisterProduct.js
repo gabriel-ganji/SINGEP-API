@@ -18,4 +18,3 @@ const RegisterProductSchema = new mongoose.Schema(
 const RegisterProduct = mongoose.model('RegisterProduct', RegisterProductSchema);
 
 module.exports = RegisterProduct;  
-        

@@ -11,9 +11,6 @@ const bodyParser = require("body-parser");
 app.use(bodyParser.urlencoded({extended: false}));
 app.use(bodyParser.json());
 
-//database
-const JwtUser = require("./src/database/models/jwtUser");
-
 //handles
 const signinHandler = require("./src/handlers/signinHandler");
 const signupHandler = require("./src/handlers/signupHandler");
@@ -29,14 +26,8 @@ app.post("/signin", async (req, res) => {
     const message = resp.message;
     let token = resp.token;
     
-    try {
-        await JwtUser.create({token});
-        res.status(resp.status).json({message, token});
-    } catch(error) {
-        console.log("catch error server.js line 36 ************")
-        console.log(error);
-
-    }
+    res.status(resp.status).json({message, token});
+    
 
 });
 
