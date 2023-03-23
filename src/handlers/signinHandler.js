@@ -7,7 +7,7 @@ let bcrypt = require("bcryptjs");
 const {jwtGenerator, jwtVerify} = require("./jwtHandler");
 
 async function signinHandle(user, password){
-
+    
     try {
 
         const whatsapp = user;
@@ -17,7 +17,7 @@ async function signinHandle(user, password){
         .then(async(user) => {
             if (!user){
 
-                return {status: 404, message: "Not Found"};
+                return {status: 404, message: "Usuário não encontrado."};
 
             } else {
 

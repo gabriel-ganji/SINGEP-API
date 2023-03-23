@@ -12,7 +12,7 @@ app.use(bodyParser.urlencoded({extended: false}));
 app.use(bodyParser.json());
 
 //database
-const JwtUser = require("./src/database/jwtUser");
+const JwtUser = require("./src/database/models/jwtUser");
 
 //handles
 const signinHandler = require("./src/handlers/signinHandler");
@@ -33,6 +33,7 @@ app.post("/signin", async (req, res) => {
         await JwtUser.create({token});
         res.status(resp.status).json({message, token});
     } catch(error) {
+        console.log("catch error server.js line 36 ************")
         console.log(error);
 
     }

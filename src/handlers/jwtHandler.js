@@ -1,12 +1,12 @@
 const jwt = require("jsonwebtoken");
 const JWTSecret = "GabrieGanji01";
 
-const jwtUser = require("../database/jwtUser");
+const jwtUser = require("../database/models/jwtUser");
 const User = require("../database/models/User");
 
 async function jwtGenerator(email) {
 
-    const token = jwt.sign({email: email}, JWTSecret, {expiresIn: "1h"});
+    const token = jwt.sign({email: email}, JWTSecret, {expiresIn: 3600});
     return token;
 
 }

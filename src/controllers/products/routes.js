@@ -8,8 +8,11 @@ routes.use(bodyParser.json());
 //Model
 const RegisterProduct = require("../../database/models/RegisterProduct");
 
+//authToken
+const auth = require("../../middlewares/authJWT");
+
 //GET
-routes.get("/products", async (req, res) => {
+routes.get("/products", auth, async (req, res) => {
 
     try{
 
