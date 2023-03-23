@@ -1,11 +1,8 @@
-const User = require("../database/User");
+const User = require("../database/models/User");
 const connectionDB = require("../database/database");
 connectionDB();
 
 async function signupHandler(data) {
-
-    const created_at = Date.now();
-    const updated_at = Date.now();
 
     let nameAnalize = /[0-9`!@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?~]/.test(data.name);
 
@@ -16,7 +13,9 @@ async function signupHandler(data) {
     if(data.password != data.confirmPassword) {
         return {status: 400, body: "Senhas divergentes, coloque a mesma senha nos dois campos."}
     }
-
+    
+    const created_at = Date.now();
+    const updated_at = Date.now();
     const fullData = {...data, created_at, updated_at};
 
     try {
@@ -25,6 +24,9 @@ async function signupHandler(data) {
 
         const resp = await User.findOne({ whatsapp }).then(user => {
             if(!user){
+
+                //aqui deve ser feita a verificação via whatsapp para saber se o número de telefone é realmente válido ou não!
+
                 User.create(fullData);
                 return {status: 200, body: "Usuário criado com sucesso!"};
             } else {

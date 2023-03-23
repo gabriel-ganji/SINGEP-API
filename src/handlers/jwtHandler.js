@@ -2,7 +2,7 @@ const jwt = require("jsonwebtoken");
 const JWTSecret = "GabrieGanji01";
 
 const jwtUser = require("../database/jwtUser");
-const User = require("../database/User");
+const User = require("../database/models/User");
 
 async function jwtGenerator(email) {
 
@@ -15,8 +15,8 @@ async function jwtVerify(token) {
 
     try {
 
-        jwt.verify(token, JWTSecret);
-        return true;
+        const verify = jwt.verify(token, JWTSecret);
+        return verify;
     
     } catch(error) {
 
