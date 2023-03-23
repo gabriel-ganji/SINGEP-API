@@ -49,7 +49,7 @@ async function signinHandle(user, password){
 
     } catch(error) {
         console.log(error);
-        return {status: 500, message: "Erro no servidor. Por favor, tente novamente"}
+        return {status: 500, message: "Erro no servidor. Por favor, tente novamente."}
     }
    
 }

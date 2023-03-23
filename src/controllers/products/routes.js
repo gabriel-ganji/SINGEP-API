@@ -14,7 +14,7 @@ const auth = require("../../middlewares/authJWT");
 //GET
 routes.get("/products", auth, async (req, res) => {
 
-    try{
+    try {
 
         const data = await RegisterProduct.find();
         res.json(data);
@@ -27,11 +27,11 @@ routes.get("/products", auth, async (req, res) => {
     }
 });
 
-routes.get("/product/:name", async (req, res) => {
+routes.get("/product/:name", auth, async (req, res) => {
 
     const name = req.params.name; 
 
-    try{
+    try {
 
         const data = await RegisterProduct.find({name});
         res.json(data);
@@ -45,12 +45,11 @@ routes.get("/product/:name", async (req, res) => {
 
 });
 
-routes.get("/product/lote/:lote", async (req, res) => {
+routes.get("/product/lote/:lote", auth, async (req, res) => {
 
-    const lote = req.params.lote; 
-    console.log(lote)
+    const lote = req.params.lote;
 
-    try{
+    try {
 
         const data = await RegisterProduct.find({lote});
         res.json(data);
@@ -65,7 +64,7 @@ routes.get("/product/lote/:lote", async (req, res) => {
 });
 
 //POST
-routes.post("/register", async (req, res) => {
+routes.post("/register", auth, async (req, res) => {
 
     const body = req.body;
     const {name, price, lote, expiry, totalun, totalkg} = body;
@@ -75,9 +74,9 @@ routes.post("/register", async (req, res) => {
 
     const product = {name, price, lote, expiry, totalun, totalkg, created_at, updated_at};
     
-    try{
+    try {
 
-        RegisterProduct.find({name, lote}).then(finded => {
+       await RegisterProduct.find({name, lote}).then(finded => {
 
             if(finded.length === 0){
 
