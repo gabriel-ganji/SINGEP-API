@@ -64,7 +64,7 @@ Exemplo de parâmetros:
 }
 ```
 #### Resposta
-##### OK!200
+##### OK! 200
 Exemplo de resposta:
 ```
 {
@@ -85,18 +85,21 @@ Exemplo de parâmetros:
 }
 ```
 #### Respostas
+##### Created! 201
 Em caso de sucesso:
 ```
 {
     "Usuário criado com sucesso!"
 }
 ```
+##### Bad Request! 400
 Em caso de já houver conta criada com o número de whatsapp:
 ```
 {
     "Whatsapp já cadastrado, faça o login."
 }
 ```
+##### Bad Request! 400
 Em caso de já houver conta criada com o email:
 ```
 {
