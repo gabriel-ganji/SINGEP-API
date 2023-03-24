@@ -6,8 +6,6 @@ Esta API-REST é utilizada para Tal e Tals...
 Obs: Este projeto foi criado com o intuito de se desenvolver apenas os endpoints de uma API, sendo assim, não há um banco de dados real implementado.
 ## Endpoints
 
-
-
 ### Post /singep/signup
 Este endpoint é responsável por cadastrar um novo usuário no sistema
 #### Parâmetros
@@ -44,6 +42,12 @@ Em caso de já houver conta criada com o email:
     "Email já cadastrado, faça o login."
 }
 ```
+##### Falha interna no servidor! 500
+```
+{
+    "Erro no servidor. Por favor tente de novo mais tarde."
+}
+```
 
 
 ### Post /singep/signin
@@ -66,7 +70,12 @@ Nele há o parâmetro user que pode ser o email ou número de whatsapp cadastrad
     "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6IjU1MTE5NTkwNTA4NjgiLCJpYXQiOjE2Nzk2OTkxOTUsImV4cCI6MTY3OTcwMjc5NX0.li4YmICEHm-mPovzeqeevA3UJxtca_IIXOxoth3vXhE"
 }
 ```
-
+##### Falha interna no servidor! 500
+```
+{
+    "Erro no servidor. Por favor tente de novo mais tarde."
+}
+```
 
 
 ### GET /singep/product/products
@@ -109,6 +118,6 @@ Caso esta resposta aconteça você vai receber a listagem de todos os produtos.
 ##### Falha interna no servidor! 500
 ```
 {
-    "Erro no servidor. Por favor tente de novo mais tarde"
+    "Erro no servidor. Por favor tente de novo mais tarde."
 }
 ```
