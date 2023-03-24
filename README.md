@@ -1,8 +1,8 @@
 # SINGEP-API
-Backend do projeto SINGEP(Sistema de Gerenciamento de Produtos)
+Backend do projeto SINGEP(Sistema de Gerenciamento de Produtos).
  
 # API-REST SINGEP
-Esta API-REST é atilizada juntamente com o front-end - SINGEP-FRONT
+Esta API-REST é atilizada juntamente com o front-end - SINGEP-FRONT.
 ## Endpoints
 
 ### Post /singep/signup
@@ -52,7 +52,7 @@ Em caso de já houver conta criada com o email:
 ### Post /singep/signin
 Este endpoint é reponsável por gerar um token válido por um dia. Este token será necessário para você acessar os outros endpoints.
 Nele há o parâmetro user que pode ser o email ou número de whatsapp cadastrado.
-#### Parametros
+#### Parâmetros
 Exemplo:
 ```
 {
