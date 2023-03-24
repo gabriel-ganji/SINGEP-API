@@ -1,15 +1,14 @@
 # SINGEP-API
-Backend of the project SINGEP made for a conclusion work to the private university ENIAC in Guarulhos - São Paulo, Brasil.
+Backend do projeto SINGEP(Sistema de Gerenciamento de Produtos)
  
 # API-REST SINGEP
-Esta API-REST é utilizada para Tal e Tals...
-Obs: Este projeto foi criado com o intuito de se desenvolver apenas os endpoints de uma API, sendo assim, não há um banco de dados real implementado.
+Esta API-REST é atilizada juntamente com o front-end - SINGEP-FRONT
 ## Endpoints
 
 ### Post /singep/signup
 Este endpoint é responsável por cadastrar um novo usuário no sistema
 #### Parâmetros
-
+Exemplo: 
 ```
 {
     "name": "José Alvez",
@@ -54,7 +53,7 @@ Em caso de já houver conta criada com o email:
 Este endpoint é reponsável por gerar um token válido por um dia. Este token será necessário para você acessar os outros endpoints.
 Nele há o parâmetro user que pode ser o email ou número de whatsapp cadastrado.
 #### Parametros
-
+Exemplo:
 ```
 {
   "user": "email@gmail.com",
@@ -64,6 +63,7 @@ Nele há o parâmetro user que pode ser o email ou número de whatsapp cadastrad
 #### Respostas
 
 ##### OK! 200
+Exemplo:
 ```
 {
     "message": "login realizado com sucesso!",
@@ -84,7 +84,7 @@ Este endpoint é responsável por retornar a listagem de todos os produtos cadas
 Nenhum.
 #### Respostas
 ##### OK! 200
-Caso esta resposta aconteça você vai receber a listagem de todos os produtos.
+Exemplo de resposta caso esta resposta aconteça você vai receber a listagem de todos os produtos.
 
 ```
 [
