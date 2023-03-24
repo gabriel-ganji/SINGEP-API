@@ -98,6 +98,8 @@ Em caso de já houver conta criada com o número de whatsapp:
 }
 ```
 Em caso de já houver conta criada com o email:
+```
 {
     "Email já cadastrado, faça o login."
 }
+```
