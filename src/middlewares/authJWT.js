@@ -1,12 +1,8 @@
 const {jwtVerify} = require("../handlers/jwtHandler");
 
 async function authJWT(req, res, next) {
-
-    console.log("We are in authJWT");
     
     const authToken = req.headers['authorization'];
-
-    console.log(authToken.length);
 
     if(authToken === undefined) {
         res.json("Token inválido").status(401);

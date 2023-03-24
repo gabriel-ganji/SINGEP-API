@@ -4,7 +4,7 @@ const app = express();
 //product routes
 const productRoutes = require("./src/controllers/products/routes");
 
-app.use("/singep/product", productRoutes);
+app.use("/singep", productRoutes);
 
 //body-parser
 const bodyParser = require("body-parser");

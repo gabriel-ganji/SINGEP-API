@@ -12,8 +12,8 @@ const RegisterProduct = require("../../database/models/RegisterProduct");
 const auth = require("../../middlewares/authJWT");
 
 //GET
-routes.get("/products", auth, async (req, res) => {
-
+routes.get("/product/products", auth, async (req, res) => {
+    
     try {
 
         const data = await RegisterProduct.find();
@@ -64,7 +64,7 @@ routes.get("/product/lote/:lote", auth, async (req, res) => {
 });
 
 //POST
-routes.post("/register", auth, async (req, res) => {
+routes.post("/product/register", auth, async (req, res) => {
 
     const body = req.body;
     const {name, price, lote, expiry, totalun, totalkg} = body;
