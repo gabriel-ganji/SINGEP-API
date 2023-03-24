@@ -22,7 +22,7 @@ routes.get("/product/products", auth, async (req, res) => {
     } catch(error) {
 
         console.log(error);
-        res.json("Erro no servidor. Por favor tente de novo mais tarde").status(200);
+        res.json("Erro no servidor. Por favor tente de novo mais tarde").status(500);
 
     }
 });

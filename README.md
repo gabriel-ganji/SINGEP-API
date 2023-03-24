@@ -42,10 +42,14 @@ Exemplo de resposta:
     }
 ]
 ```
-##### Falha na autenticação! 401
-Caso essa resposta aconteça, isso significa que aconteceu alguma falha durante o processo de autenticação da requisição.
+
 ##### Falha interna no servidor! 500
-Caso aconteça um erro sem causa prévia.
+```
+{
+    "Erro no servidor. Por favor tente de novo mais tarde"
+}
+```
+
 
 
 
