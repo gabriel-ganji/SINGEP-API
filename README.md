@@ -11,7 +11,7 @@ Obs: Este projeto foi criado com o intuito de se desenvolver apenas os endpoints
 ### Post /singep/signup
 Este endpoint é responsável por cadastrar um novo usuário no sistema
 #### Parâmetros
-Exemplo de parâmetros:
+
 ```
 {
     "name": "José Alvez",
@@ -23,27 +23,6 @@ Exemplo de parâmetros:
 }
 ```
 #### Resposta
-##### OK! 200
-Exemplo de resposta:
-```
-{
-    "message": "login realizado com sucesso!",
-    "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6IjU1MTE5NTkwNTA4NjgiLCJpYXQiOjE2Nzk2OTkxOTUsImV4cCI6MTY3OTcwMjc5NX0.li4YmICEHm-mPovzeqeevA3UJxtca_IIXOxoth3vXhE"
-}
-```
-
-### Post /singep/signin
-Este endpoint é reponsável por gerar um token válido por um dia. Este token será necessário para você acessar os outros endpoints.
-Nele há o parâmetro user que pode ser o email ou número de whatsapp cadastrado.
-#### Parametros
-Exemplo de parâmetros:
-```
-{
-  "user": "email@gmail.com",
-  "senha":"senha123"
-}
-```
-#### Respostas
 ##### Created! 201
 Em caso de sucesso:
 ```
@@ -67,6 +46,29 @@ Em caso de já houver conta criada com o email:
 ```
 
 
+### Post /singep/signin
+Este endpoint é reponsável por gerar um token válido por um dia. Este token será necessário para você acessar os outros endpoints.
+Nele há o parâmetro user que pode ser o email ou número de whatsapp cadastrado.
+#### Parametros
+
+```
+{
+  "user": "email@gmail.com",
+  "senha":"senha123"
+}
+```
+#### Respostas
+
+##### OK! 200
+```
+{
+    "message": "login realizado com sucesso!",
+    "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6IjU1MTE5NTkwNTA4NjgiLCJpYXQiOjE2Nzk2OTkxOTUsImV4cCI6MTY3OTcwMjc5NX0.li4YmICEHm-mPovzeqeevA3UJxtca_IIXOxoth3vXhE"
+}
+```
+
+
+
 ### GET /singep/product/products
 Este endpoint é responsável por retornar a listagem de todos os produtos cadastrados no banco de dados.
 #### Parametros
@@ -74,7 +76,7 @@ Nenhum.
 #### Respostas
 ##### OK! 200
 Caso esta resposta aconteça você vai receber a listagem de todos os produtos.
-Exemplo de resposta:
+
 ```
 [
     {
