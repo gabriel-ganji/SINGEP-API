@@ -1,7 +1,7 @@
 # SINGEP-API
 Backend of the project SINGEP made for a conclusion work to the private university ENIAC in Guarulhos - São Paulo, Brasil.
  
-# API-REST DE GAMES
+# API-REST SINGEP
 Esta API-REST é utilizada para Tal e Tals...
 Obs: Este projeto foi criado com o intuito de se desenvolver apenas os endpoints de uma API, sendo assim, não há um banco de dados real implementado.
 ## Endpoints
