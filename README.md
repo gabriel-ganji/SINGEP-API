@@ -63,8 +63,15 @@ Exemplo de parâmetros:
     "confirmPassword": "01011010"
 }
 ```
-
-
+#### Resposta
+##### OK!200
+Exemplo de resposta:
+```
+{
+    "message": "login realizado com sucesso!",
+    "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6IjU1MTE5NTkwNTA4NjgiLCJpYXQiOjE2Nzk2OTkxOTUsImV4cCI6MTY3OTcwMjc5NX0.li4YmICEHm-mPovzeqeevA3UJxtca_IIXOxoth3vXhE"
+}
+```
 
 ### Post /singep/signin
 Este endpoint é reponsável por gerar um token válido por um dia. Este token será necessário para você acessar os outros endpoints.
