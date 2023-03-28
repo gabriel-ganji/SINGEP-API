@@ -2,10 +2,17 @@ const User = require("../database/models/User");
 const connectionDB = require("../database/database");
 connectionDB();
 
+//generate code
+const {generateCode} = require("../services/codeConfirm");
+
+//axios
+const axios = require("axios");
+
 async function signupHandler(data) {
 
     let nameAnalize = /[0-9`!@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?~]/.test(data.name);
     let whatsappAnalize = /[`!@#$%^&*()_+\=\[\]{};':"\\|,.<>\/?~]/.test(data.whatsapp);
+    //let emailAnalize = /[`!#$%^&*()+\=\[\]{};':"\\|,<>\/?~]/.test(data.email);
 
     let whatsapp = data.whatsapp;
 
@@ -60,7 +67,10 @@ async function signupHandler(data) {
 
                         ///
                         //aqui deve ser feita a verificação via whatsapp para saber se o número de telefone é realmente válido ou não!
-                        ///
+                        const codeConfirm = generateCode(name, whatsapp);
+                        
+                        const welcomeMessage = `Olá, ${name.toUpperCase()}. \nSeja bem-vindo(a) ao SINGEP. \n\nSeu código de confirmação é: ${codeConfirm}.`;
+                        axios.post("http://localhost:3033/sendWhatsappMessage", {number: `55${whatsapp}@c.us`, message: welcomeMessage});
 
                         await User.create(fullData);
                         return {status: 200, body: "Usuário criado com sucesso!"};
@@ -76,7 +86,7 @@ async function signupHandler(data) {
             } else {
 
                 return {status: 200, body: "Whatsapp já cadastrado, faça o login."};
-                
+
             }
         });
 

@@ -37,12 +37,21 @@ app.post("/signin", async (req, res) => {
 
 });
 
+app.post("/auth", async(req, res) => {
+
+});
+
 app.post("/signup", async (req, res) => {
 
     const {name, email, whatsapp, ownerof, password, confirmPassword} = req.body;
     
         const data = {name, email, whatsapp, ownerof, password, confirmPassword};
+        
         let resp = await signupHandler(data);
+        
+        if(resp.status === 200){
+            res.redirect("/auth", )
+        }
         res.json(resp.body).status(resp.status);
     
 });
