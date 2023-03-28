@@ -8,7 +8,6 @@ async function signupHandler(data) {
     let whatsappAnalize = /[`!@#$%^&*()_+\=\[\]{};':"\\|,.<>\/?~]/.test(data.whatsapp);
 
     let whatsapp = data.whatsapp;
-    let email = data.email;
 
     if(nameAnalize) {
         return {status: 400, body: "O nome do usuário não pode conter números ou characteres especias."};
@@ -29,12 +28,25 @@ async function signupHandler(data) {
         return {status: 400, body: "Senhas divergentes, coloque a mesma senha nos dois campos."};
     } 
     
+    let name = data.name.toLowerCase();
+    let email = data.email.toLowerCase();
     whatsapp = data.whatsapp.replace(/[^a-zA-Z0-9]/g, "");
-    console.log(whatsapp);
+    let ownerof = data.ownerof.toLowerCase();
+    let password = data.password;
+
 
     const created_at = Date.now();
     const updated_at = Date.now();
-    const fullData = {};
+
+    const fullData = {
+        name,
+        email,
+        whatsapp,
+        ownerof,
+        password,
+        created_at,
+        updated_at
+    };
 
     try {
 
@@ -45,19 +57,26 @@ async function signupHandler(data) {
                return await User.findOne({ email }).then(async(userEmail) => {
             
                     if(!userEmail){
-                        await User.create(fullData);
+
                         ///
                         //aqui deve ser feita a verificação via whatsapp para saber se o número de telefone é realmente válido ou não!
                         ///
+
+                        await User.create(fullData);
                         return {status: 200, body: "Usuário criado com sucesso!"};
+
                     } else {
+
                         return {status: 200, body: "Email já cadastrado, faça o login."};
+
                     }
 
                 });
                 
             } else {
+
                 return {status: 200, body: "Whatsapp já cadastrado, faça o login."};
+                
             }
         });
 

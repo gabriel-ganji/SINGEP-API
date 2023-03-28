@@ -15,6 +15,12 @@ app.use(bodyParser.json());
 const signinHandler = require("./src/handlers/signinHandler");
 const signupHandler = require("./src/handlers/signupHandler");
 
+
+//whatsapp message sender
+const whatsappSender = require("./src/controllers/whatsapp/sendMessage");
+app.use("/", whatsappSender);
+
+
 app.get("/", (req, res) => {
     res.status(200).json({name: "Json"});
 });
