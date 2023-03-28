@@ -5,7 +5,7 @@ connectionDB();
 async function signupHandler(data) {
 
     let nameAnalize = /[0-9`!@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?~]/.test(data.name);
-    let whatsappAnalize = /[`!@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?~]/.test(data.whatsapp);
+    let whatsappAnalize = /[`!@#$%^&*()_+\=\[\]{};':"\\|,.<>\/?~]/.test(data.whatsapp);
 
     let whatsapp = data.whatsapp;
     let email = data.email;
@@ -18,7 +18,7 @@ async function signupHandler(data) {
         return {status: 400, body: "O seu whatsapp não pode conter characteres especias."};
     }
 
-    if(whatsapp.length !== 11 && whatsapp.length !== 13 ){
+    if(whatsapp.length !== 11 && whatsapp.length !== 13 && whatsapp.length !== 12 ){
         return {status: 400, body: "O seu número de whatsapp está errado."};
     }
 
@@ -29,9 +29,12 @@ async function signupHandler(data) {
         return {status: 400, body: "Senhas divergentes, coloque a mesma senha nos dois campos."};
     } 
     
+    whatsapp = data.whatsapp.replace(/[^a-zA-Z0-9]/g, "");
+    console.log(whatsapp);
+
     const created_at = Date.now();
     const updated_at = Date.now();
-    const fullData = {...data, created_at, updated_at};
+    const fullData = {};
 
     try {
 
