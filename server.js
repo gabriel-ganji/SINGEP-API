@@ -14,6 +14,7 @@ app.use(bodyParser.json());
 //handles
 const signinHandler = require("./src/handlers/signinHandler");
 const signupHandler = require("./src/handlers/signupHandler");
+const authAccount = require("./src/handlers/authAccount");
 
 
 //whatsapp message sender
@@ -37,7 +38,13 @@ app.post("/signin", async (req, res) => {
 
 });
 
-app.post("/auth", async(req, res) => {
+app.post("/authUserAccount", async(req, res) => {
+    
+    const {user, code} = req.body;
+    const data = {user, code};
+
+    let resp = await authAccount(data);
+    res.json(resp.json).status(resp.status);
 
 });
 
@@ -46,12 +53,7 @@ app.post("/signup", async (req, res) => {
     const {name, email, whatsapp, ownerof, password, confirmPassword} = req.body;
     
         const data = {name, email, whatsapp, ownerof, password, confirmPassword};
-        
         let resp = await signupHandler(data);
-        
-        if(resp.status === 200){
-            res.redirect("/auth", )
-        }
         res.json(resp.body).status(resp.status);
     
 });

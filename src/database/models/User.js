@@ -8,6 +8,7 @@ const UserSchema = new mongoose.Schema(
         whatsapp: {type: String, required: true, unique: true},
         ownerof: {type: String, required: true},
         password: {type: String, required: true},
+        auth: false,
         created_at: {type: Date, required: true},
         updated_at: {type: Date, required: true}
     
