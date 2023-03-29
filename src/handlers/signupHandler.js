@@ -14,7 +14,16 @@ async function signupHandler(data) {
     let whatsappAnalize = /[`!@#$%^&*()_+\=\[\]{};':"\\|,.<>\/?~]/.test(data.whatsapp);
     //let emailAnalize = /[`!#$%^&*()+\=\[\]{};':"\\|,<>\/?~]/.test(data.email);
 
+    let name = data.name.toLowerCase();
+    let email = data.email.toLowerCase();
     let whatsapp = data.whatsapp;
+    whatsapp = data.whatsapp.replace(/[^a-zA-Z0-9]/g, "");
+    let ownerof = data.ownerof.toLowerCase();
+    let password = data.password;
+
+    if(name === undefined || email == undefined || whatsapp == undefined || ownerof == undefined || password == undefined) {
+        return {status: 500, body: "Erro, algum campo está indefinido."};
+    }
 
     if(nameAnalize) {
         return {status: 400, body: "O nome do usuário não pode conter números ou characteres especias."};
@@ -34,13 +43,6 @@ async function signupHandler(data) {
     else if(data.password != data.confirmPassword) {
         return {status: 400, body: "Senhas divergentes, coloque a mesma senha nos dois campos."};
     } 
-    
-    let name = data.name.toLowerCase();
-    let email = data.email.toLowerCase();
-    whatsapp = data.whatsapp.replace(/[^a-zA-Z0-9]/g, "");
-    let ownerof = data.ownerof.toLowerCase();
-    let password = data.password;
-
 
     const created_at = Date.now();
     const updated_at = Date.now();
@@ -80,7 +82,7 @@ async function signupHandler(data) {
 
                     } else {
 
-                        return {status: 200, body: "Email já cadastrado, faça o login."};
+                        return {status: 400, body: "Email já cadastrado, faça o login."};
 
                     }
 
@@ -88,7 +90,7 @@ async function signupHandler(data) {
                 
             } else {
 
-                return {status: 200, body: "Whatsapp já cadastrado, faça o login."};
+                return {status: 400, body: "Whatsapp já cadastrado, faça o login."};
 
             }
         });
