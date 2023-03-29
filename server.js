@@ -54,9 +54,12 @@ app.post("/authUserAccount", async(req, res) => {
 
 app.post("/signup", async (req, res) => {
 
+    console.log(req);
+
     const {name, email, whatsapp, ownerof, password, confirmPassword} = req.body;
     
         const data = {name, email, whatsapp, ownerof, password, confirmPassword};
+        console.log(data);
         let resp = await signupHandler(data);
         res.json(resp.body).status(resp.status);
     

@@ -24,7 +24,7 @@ async function signupHandler(data) {
         return {status: 400, body: "O seu whatsapp não pode conter characteres especias."};
     }
 
-    if(whatsapp.length !== 11 && whatsapp.length !== 13 && whatsapp.length !== 12 ){
+    if(whatsapp.length !== 11 && whatsapp.length !== 12 ){
         return {status: 400, body: "O seu número de whatsapp está errado."};
     }
 
@@ -51,9 +51,12 @@ async function signupHandler(data) {
         whatsapp,
         ownerof,
         password,
+        auth: false,
         created_at,
         updated_at
     };
+
+    console.log(fullData);
 
     try {
 
@@ -70,8 +73,8 @@ async function signupHandler(data) {
                         const codeConfirm = generateCode(name, whatsapp);
                         
                         const welcomeMessage = `Olá, ${name.toUpperCase()}. \nSeja bem-vindo(a) ao SINGEP. \n\nSeu código de confirmação é: ${codeConfirm}.`;
-                        axios.post("http://localhost:3033/sendWhatsappMessage", {number: `55${whatsapp}@c.us`, message: welcomeMessage});
-
+                        axiosPost = await axios.post("http://localhost:3033/sendWhatsappMessage", {number: `55${whatsapp}@c.us`, message: welcomeMessage});
+                        console.log(axiosPost);
                         await User.create(fullData);
                         return {status: 200, body: "Usuário criado com sucesso!"};
 

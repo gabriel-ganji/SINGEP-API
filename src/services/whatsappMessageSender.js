@@ -9,7 +9,13 @@ class Sender {
     async sendText(to, body){
         //(11) 959050868 -> wrong format
         // 5511959050868@c.us -> correct way
-        await this.client.sendText(to, body);
+        try{
+            await this.client.sendText(to, body);
+        } catch(err){
+            console.log(err);
+            return err;
+        }
+        
     }
 
     initialize() {
