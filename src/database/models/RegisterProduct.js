@@ -2,7 +2,7 @@ const mongoose = require("mongoose");
 
 const RegisterProductSchema = new mongoose.Schema(
     {
-
+        whatsappCompany: {type: String, required: true},
         name: {type: String, required: true},
         price: {type: String, required: true},
         lote: {type: String, required: true},

@@ -10,33 +10,30 @@ async function signinHandle(user, password){
     
     try {
 
-        const whatsapp = user;
-        const passwordf = password;
-
-        const resp = await User.findOne({ whatsapp })
+        const resp = await User.findOne({ user })
         .then(async(user) => {
             if (!user){
 
-                return {status: 404, message: "Usuário não encontrado."};
+                return {status: 404, body: "Usuário não encontrado."};
 
             } else {
 
-                const bcryptCompareRes = await bcrypt.compare(passwordf, user.password).then(async(data) => {
+                const bcryptCompareRes = await bcrypt.compare(password, user.password).then(async(data) => {
                     if(data === true) {
 
-                        const token = await jwtGenerator(whatsapp); 
+                        const token = await jwtGenerator(user); 
                         const verify = await jwtVerify(token);
 
                         if (verify) {
 
-                            return {status: 200, message: 'login realizado com sucesso!', token: token};
+                            return {status: 200, body: 'login realizado com sucesso!', token: token};
 
                         } else {
-                            return {status: 400, message: 'Token inválido!'}
+                            return {status: 400, body: 'Token inválido!'}
                         }
                         
                     } else {
-                        return {status: 500, message: "Senha incorreta!"};
+                        return {status: 500, body: "Senha incorreta!"};
                     } 
                 });
 
@@ -49,7 +46,7 @@ async function signinHandle(user, password){
 
     } catch(error) {
         console.log(error);
-        return {status: 500, message: "Erro no servidor. Por favor, tente novamente."}
+        return {status: 500, body: "Erro no servidor. Por favor, tente novamente."}
     }
    
 }

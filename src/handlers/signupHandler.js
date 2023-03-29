@@ -82,7 +82,7 @@ async function signupHandler(data) {
 
                     } else {
 
-                        return {status: 400, body: "Email já cadastrado, faça o login."};
+                        return {status: 409, body: "Email já cadastrado, faça o login."};
 
                     }
 
@@ -90,7 +90,7 @@ async function signupHandler(data) {
                 
             } else {
 
-                return {status: 400, body: "Whatsapp já cadastrado, faça o login."};
+                return {status: 409, body: "Whatsapp já cadastrado, faça o login."};
 
             }
         });

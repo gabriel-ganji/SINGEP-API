@@ -34,10 +34,10 @@ app.post("/signin", async (req, res) => {
 
     const {user, password} = req.body;
     const resp = await signinHandler(user, password);
-    const message = resp.message;
+    const body = resp.body;
     let token = resp.token;
     
-    res.status(resp.status).json({message, token});
+    res.status(resp.status).json({body, token});
     
 
 });
@@ -52,7 +52,7 @@ app.post("/authUserAccount", async(req, res) => {
 
 });
 
-app.post("/signup", async (req, res) => {
+app.post("/signup", async (req, res) => { 
 
     console.log(req);
 
@@ -61,7 +61,8 @@ app.post("/signup", async (req, res) => {
         const data = {name, email, whatsapp, ownerof, password, confirmPassword};
         console.log(data);
         let resp = await signupHandler(data);
-        res.json(resp.body).status(resp.status);
+        console.log(resp.status);
+        res.json(resp.body, resp.status)
     
 });
 
