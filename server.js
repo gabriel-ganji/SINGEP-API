@@ -48,7 +48,8 @@ app.post("/authUserAccount", async(req, res) => {
     const data = {user, code};
 
     let resp = await authAccount(data);
-    res.json(resp.json).status(resp.status);
+    console.log(resp);
+    res.json(resp.body).status(resp.status);
 
 });
 

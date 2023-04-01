@@ -8,10 +8,13 @@ const {jwtGenerator, jwtVerify} = require("./jwtHandler");
 
 async function signinHandle(user, password){
     
+    const whatsapp = user;
+    
     try {
 
-        const resp = await User.findOne({ user })
+        const resp = await User.findOne({ whatsapp })
         .then(async(user) => {
+            console.log(user);
             if (!user){
 
                 return {status: 404, body: "Usuário não encontrado."};

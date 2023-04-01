@@ -42,23 +42,7 @@ async function signupHandler(data) {
     } 
     else if(data.password != data.confirmPassword) {
         return {status: 400, body: "Senhas divergentes, coloque a mesma senha nos dois campos."};
-    } 
-
-    const created_at = Date.now();
-    const updated_at = Date.now();
-
-    const fullData = {
-        name,
-        email,
-        whatsapp,
-        ownerof,
-        password,
-        auth: false,
-        created_at,
-        updated_at
-    };
-
-    console.log(fullData);
+    }
 
     try {
 
@@ -76,7 +60,22 @@ async function signupHandler(data) {
                         
                         const welcomeMessage = `Olá, ${name.toUpperCase()}. \nSeja bem-vindo(a) ao SINGEP. \n\nSeu código de confirmação é: ${codeConfirm}.`;
                         axiosPost = await axios.post("http://localhost:3033/sendWhatsappMessage", {number: `55${whatsapp}@c.us`, message: welcomeMessage});
-                        console.log(axiosPost);
+                        
+                        const created_at = Date.now();
+                        const updated_at = Date.now();
+
+                        const fullData = {
+                            name,
+                            email,
+                            whatsapp,
+                            ownerof,
+                            password,
+                            auth: false,
+                            code: codeConfirm,
+                            created_at,
+                            updated_at
+                        };
+
                         await User.create(fullData);
                         return {status: 200, body: "Usuário criado com sucesso!"};
 
