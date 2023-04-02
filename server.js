@@ -6,7 +6,7 @@ var cors = require('cors');
 app.use(cors());
 
 //product routes
-const productRoutes = require("./src/controllers/products/routes");
+const productRoutes = require("./src/controllers/products/productsRoutes");
 
 app.use("/singep", productRoutes);
 
@@ -36,10 +36,9 @@ app.post("/signin", async (req, res) => {
     const resp = await signinHandler(user, password);
     const body = resp.body;
     let token = resp.token;
-    
-    res.status(resp.status).json({body, token});
-    
 
+    res.json(body, token, resp.status);
+    
 });
 
 app.post("/authUserAccount", async(req, res) => {
@@ -49,7 +48,7 @@ app.post("/authUserAccount", async(req, res) => {
 
     let resp = await authAccount(data);
     console.log(resp);
-    res.json(resp.body).status(resp.status);
+    res.json(resp.body, resp.status);
 
 });
 
@@ -63,7 +62,7 @@ app.post("/signup", async (req, res) => {
         console.log(data);
         let resp = await signupHandler(data);
         console.log(resp.status);
-        res.json(resp.body, resp.status)
+        res.json(resp.body, resp.status);
     
 });
 
