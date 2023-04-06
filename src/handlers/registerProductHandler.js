@@ -40,8 +40,8 @@ async function registerProductHandler(data){
 
                     let sumTotalUn = parseInt(res.totalun) + parseInt(totalun);
                     let sumTotalKg = parseInt(res.totalkg) + parseInt(totalkg);
-                    RegisterProduct.updateOne({name, lote, price}, {$set: {totalun: sumTotalUn, updated_at: Date.now()}}).then();
-                    RegisterProduct.updateOne({name, lote, price}, {$set: {totalkg: sumTotalKg, updated_at: Date.now()}}).then();
+                    Product.updateOne({name, lote, price}, {$set: {totalun: sumTotalUn, updated_at: Date.now()}}).then();
+                    Product.updateOne({name, lote, price}, {$set: {totalkg: sumTotalKg, updated_at: Date.now()}}).then();
 
                 });
                 return {body: 'Produto alterado com sucesso!', status: 200};

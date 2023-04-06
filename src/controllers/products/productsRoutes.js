@@ -1,6 +1,8 @@
 const express = require("express");
 const routes = express();
 
+const Product = require("../../database/models/Product");
+
 const bodyParser = require("body-parser");
 routes.use(bodyParser.urlencoded({extended: false}));
 routes.use(bodyParser.json());
@@ -15,11 +17,13 @@ const deleteProductHandler = require("../../handlers/deleteProductHandler");
 
 //GET
 //Criate a new product
-routes.get("/product/products", auth, async (req, res) => {
+routes.get("/product/products/:whatsapp", async (req, res) => {
+
+    const whatsapp = req.params.whatsapp;
     
     try {
 
-        const data = await RegisterProduct.find();
+        const data = await Product.find({whatsappOwner: whatsapp});
         res.json(data);
 
     } catch(error) {
