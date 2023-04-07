@@ -22,12 +22,14 @@ async function registerProductHandler(data){
     
     try {
 
-       return await Product.find({name, lote}).then(finded => {
+       return await Product.find({name, lote}).then(async finded => {
 
             if(finded.length === 0){
 
                 try {
-                    Product.create(product);
+                    await Product.create(product).then(res => {
+                        console.log("res222: ", res);
+                    });
                     return {body: 'Produto registrado com sucesso!', status: 200};
                     
                 } catch(err){

@@ -7,8 +7,8 @@ const ProductSchema = new mongoose.Schema(
         price: {type: String, required: true},
         lote: {type: String, required: true},
         expiry: {type: String, required: true},
-        totalun: {type: Number, required: true},
-        totalkg: {type: Number, required: true},
+        totalun: {type: Number},
+        totalkg: {type: Number},
         created_at: {type: Date, required: true},
         updated_at: {type: Date, required: true}
     

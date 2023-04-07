@@ -5,10 +5,15 @@ const app = express();
 var cors = require('cors');
 app.use(cors());
 
+//contactUs routes
+const contactUsRoutes = require("./src/controllers/contactUs/contactUsRoute");
+
 //product routes
 const productRoutes = require("./src/controllers/products/productsRoutes");
 
+// // 
 app.use("/singep", productRoutes);
+app.use("/singep", contactUsRoutes);
 
 //body-parser
 const bodyParser = require("body-parser");
