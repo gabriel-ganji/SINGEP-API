@@ -92,9 +92,10 @@ routes.post("/product/update", async (req, res) => {
 });
 
 //deleta um produto
-routes.delete("/product/delete", async(req, res) => {
+routes.post("/product/delete", async(req, res) => {
     const data = req.body;
     const result = await deleteProductHandler(data);
+    console.log("RERE: ", result);
     res.json(result.body).status(result.status);
 })
 

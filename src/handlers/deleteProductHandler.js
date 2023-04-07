@@ -3,29 +3,34 @@ const Product = require("../database/models/Product");
 async function deleteProduct(data) {
 
     const { whatsappOwner, name, lote } = data;
-    console.log(name, lote, "delete");
+    console.log(whatsappOwner, name, lote, "delete");
 
     try {
-        return await Product.findOne({whatsappOwner, name, lote}).then(res => {
-
-            if(res === null){
+        return await Product.findOneAndDelete({whatsappOwner, name, lote}).then(res => {
+            console.log(res);
+            if(res == null) {
                 return {status: 404, body:"Produto não encontrado. Não há como excluir."}
-
             } else {
-
-                Product.deleteOne({whatsappOwner, name, lote});
-                
+                return {status: 200, body: "Produto excluido com sucesso!"}
             }
 
-            return {status: 200, body: "Produto excluido com sucesso!"}
+            // if(res === null){
+            //     return {status: 404, body:"Produto não encontrado. Não há como excluir."}
+
+            // } else {
+
+            //     Product.deleteOne({whatsappOwner: whatsappOwner, name: name, lote: lote});
+                
+            // }
+
+            
             
         });
 
     } catch(error) {
-
+        console.log(error);
+        return {status: 404, body:"Produto não encontrado. Não há como excluir."}
     }
-
-    return {status: 200, body: "Hello there!" }
 
 } 
 
