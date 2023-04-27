@@ -10,6 +10,7 @@ const RegisterProduct = require("../../database/models/RegisterProduct");
 
 //authToken
 const auth = require("../../middlewares/authJWT");
+const AnalyzeDate = require("./analyzeExpiry");
 
 //GET
 routes.get("/product/products", auth, async (req, res) => {
@@ -44,6 +45,12 @@ routes.get("/product/:name", auth, async (req, res) => {
     }
 
 });
+
+routes.get("/product/analyzeDate/whatsappOwner/:whatsapp", (req, res) => {
+    const whatsapp = req.params.whatsapp;
+    const result = AnalyzeDate(whatsapp); 
+    res.json(result);
+})
 
 routes.get("/product/lote/:lote", auth, async (req, res) => {
 

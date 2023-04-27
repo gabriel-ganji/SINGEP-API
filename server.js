@@ -9,7 +9,7 @@ app.use(cors());
 const contactUsRoutes = require("./src/controllers/contactUs/contactUsRoute");
 
 //product routes
-const productRoutes = require("./src/controllers/products/productsRoutes");
+const productRoutes = require("./src/controllers/products/routes");
 
 // // 
 app.use("/singep", productRoutes);
