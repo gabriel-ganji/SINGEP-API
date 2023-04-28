@@ -28,7 +28,7 @@ const authAccount = require("./src/handlers/authAccount");
 
 //whatsapp message sender
 const whatsappSender = require("./src/controllers/whatsapp/sendMessage");
-app.use("/", whatsappSender);
+app.use("/singep", whatsappSender);
 
 
 app.get("/", (req, res) => {

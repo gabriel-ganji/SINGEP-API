@@ -6,18 +6,20 @@ routes.use(bodyParser.urlencoded({extended: false}));
 routes.use(bodyParser.json());
 
 //Model
-const RegisterProduct = require("../../database/models/RegisterProduct");
+const Product = require("../../database/models/Product");
 
 //authToken
 const auth = require("../../middlewares/authJWT");
 const AnalyzeDate = require("./analyzeExpiry");
 
 //GET
-routes.get("/product/products", auth, async (req, res) => {
+routes.get("/products/product/:whatsapp", async (req, res) => {
+
+    const whatsapp = req.params.whatsapp;
     
     try {
 
-        const data = await RegisterProduct.find();
+        const data = await Product.find({"whatsappOwner": whatsapp});
         res.json(data);
 
     } catch(error) {
@@ -34,7 +36,7 @@ routes.get("/product/:name", auth, async (req, res) => {
 
     try {
 
-        const data = await RegisterProduct.find({name});
+        const data = await Product.find({name});
         res.json(data);
 
     } catch(error) {
@@ -58,7 +60,7 @@ routes.get("/product/lote/:lote", auth, async (req, res) => {
 
     try {
 
-        const data = await RegisterProduct.find({lote});
+        const data = await Product.find({lote});
         res.json(data);
 
     } catch(error) {
@@ -83,21 +85,21 @@ routes.post("/product/register", auth, async (req, res) => {
     
     try {
 
-       await RegisterProduct.find({name, lote}).then(finded => {
+       await Product.find({name, lote}).then(finded => {
 
             if(finded.length === 0){
 
-                RegisterProduct.create(product);
+                Product.create(product);
                 res.json("Produto registrado com sucesso").status(200);
 
             } else {
 
-                RegisterProduct.findOne({name, lote}).then(res => {
+                Product.findOne({name, lote}).then(res => {
 
                     let sumTotalUn = parseInt(res.totalun) + parseInt(totalun);
                     let sumTotalKg = parseInt(res.totalkg) + parseInt(totalkg);
-                    RegisterProduct.updateOne({name, lote}, {$set: {totalun: sumTotalUn, updated_at: Date.now()}}).then();
-                    RegisterProduct.updateOne({name, lote}, {$set: {totalkg: sumTotalKg, updated_at: Date.now()}}).then();
+                    Product.updateOne({name, lote}, {$set: {totalun: sumTotalUn, updated_at: Date.now()}}).then();
+                    Product.updateOne({name, lote}, {$set: {totalkg: sumTotalKg, updated_at: Date.now()}}).then();
 
                 });
 
