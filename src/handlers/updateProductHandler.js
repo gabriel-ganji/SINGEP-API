@@ -1,8 +1,9 @@
 const Product = require("../database/models/Product");
 
-async function updateProduct(data) {
+async function updateProductHandler(data) {
 
     const { whatsappOwner, name, lote, newPrice } = data;
+    console.log(whatsappOwner, "NAME: ", name, lote, newPrice);
 
     try {
         return await Product.findOne({whatsappOwner, name, lote}).then(res => {
@@ -25,4 +26,4 @@ async function updateProduct(data) {
 
 } 
 
-module.exports = updateProduct;
+module.exports = {updateProductHandler};
