@@ -1,6 +1,6 @@
 const Product = require("../database/models/Product");
 
-async function deleteProduct(data) {
+async function deleteProductHandler(data) {
 
     const { whatsappOwner, name, lote } = data;
     console.log(whatsappOwner, name, lote, "delete");
@@ -34,4 +34,4 @@ async function deleteProduct(data) {
 
 } 
 
-module.exports = deleteProduct;
+module.exports = { deleteProductHandler };

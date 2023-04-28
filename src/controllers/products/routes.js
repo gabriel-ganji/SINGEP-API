@@ -13,15 +13,16 @@ const auth = require("../../middlewares/authJWT");
 const AnalyzeDate = require("./analyzeExpiry");
 const { registerProductHandler } = require("../../handlers/registerProductHandler");
 const { updateProductHandler } = require("../../handlers/updateProductHandler");
+const { deleteProductHandler } = require("../../handlers/deleteProductHandler");
 
-//GET
+/////   GET   /////
 routes.get("/products/product/:whatsapp", async (req, res) => {
 
     const whatsapp = req.params.whatsapp;
     
     try {
 
-        const data = await Product.find({"whatsappOwner": whatsapp});
+        const data = await Product.find({"whatsappOwner": whatsapp}).sort({name: 1});
         res.json(data);
 
     } catch(error) {
@@ -75,7 +76,6 @@ routes.get("/product/lote/:lote", auth, async (req, res) => {
 });
 
 /////     POST     /////
-
 //Register
 routes.post("/product/register", async (req, res) => {
 
@@ -92,6 +92,15 @@ routes.post("/product/update", async(req, res) => {
     const data = req.body;
     console.log(data);
     const result = await updateProductHandler(data);
+    res.status(result.status);
+    res.json(result.body);
+
+});
+
+routes.post("/product/delete", async(req, res) => {
+
+    const data = req.body;
+    const result = await deleteProductHandler(data);
     res.status(result.status);
     res.json(result.body);
 
