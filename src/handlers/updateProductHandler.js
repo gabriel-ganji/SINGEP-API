@@ -12,17 +12,15 @@ async function updateProductHandler(data) {
                 return {status: 404, body:"Produto não encontrado. Não há como atualizar."}
             } else {
                 Product.updateOne({whatsappOwner, name, lote}, {$set: {price: newPrice}}).then(res => console.log(res));
+                return {status: 200, body: "Produto atualizado com sucesso!"}
             }
-
-            return {status: 200, body: "Produto atualizado com sucesso!"}
             
         });
 
     } catch(error) {
-
+        console.log(error);
+        return {status: 200, body: "Hello there!" }
     }
-
-    return {status: 200, body: "Hello there!" }
 
 } 
 
