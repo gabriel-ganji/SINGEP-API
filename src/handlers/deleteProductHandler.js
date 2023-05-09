@@ -6,7 +6,7 @@ async function deleteProductHandler(data) {
     console.log(whatsappOwner, name, lote, "delete");
 
     try {
-        return await Product.findOneAndDelete({whatsappOwner, name, lote}).then(res => {
+        return Product.findOneAndDelete({whatsappOwner, name, lote}).then(res => {
             console.log(res);
             if(res == null) {
                 return {status: 404, body:"Produto não encontrado. Não há como excluir."}

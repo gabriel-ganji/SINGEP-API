@@ -6,7 +6,7 @@ async function authAccount(data){
     let code = data.code;
 
     try {
-        return await User.findOneAndUpdate({whatsapp, code}, {auth: true}).then(res => {
+        return User.findOneAndUpdate({whatsapp, code}, {auth: true}).then(res => {
             if(res){
                 return {status: 200, body: "Conta autenticada com sucesso!"};
             } else {
