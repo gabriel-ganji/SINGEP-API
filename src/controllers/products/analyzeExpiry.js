@@ -1,36 +1,47 @@
 const { default: axios } = require("axios");
 const Product = require("../../database/models/Product");
-const Sender = require("../../services/whatsappMessageSender");
+const Notify = require("../../database/models/Notify");
 
-const sender = new Sender();
-
-const AnalyzeDate = (whatsapp) => {
-    
-    let yourDate = new Date();
-    const dateNow = yourDate.toISOString().split('T')[0];
+const AnalyzeDate = async (whatsapp) => {
 
     try {
-        Product.find({"whatsappOwner": whatsapp}).then(async (data) => {
+
+       return await Product.find({"whatsappOwner": whatsapp}).then(async (data) => {
+
+            let yourDate = new Date();
+            const dateNow = yourDate.toISOString().split('T')[0];
             
             for(i of data){
-                console.log(i.expiry, dateNow);
+                
                 if(String(i.expiry) < dateNow){
-                    // console.log("PASSOU DA DATA DE VALIDADE!");
-                    const message = `Olá. O produto *${i.name}* do lote *${i.lote}* venceu! Você tem ${i.totalun} unidades vecidas deste produto, certifique-se de tirá-los de circulação.`;
+                    
+                    const message = `Olá. O produto *${i.name}* do lote *${i.lote}* venceu! Você tem *${i.totalun}* unidades vencidas deste produto, certifique-se de tirá-los de circulação.`;
                     const number = `55${i.whatsappOwner}@c.us`;
 
-                    await axios.post("http://localhost:3033/sendWhatsappMessage", {number, message});
+                    await axios.post("http://localhost:3033/send", {number: number, message: message});
+                    
+                    try {
+
+                        let prodName = i.name;
+                        let prodLote = i.lote;
+                        let obj = {whatsappOwner: whatsapp, prodName, prodLote, latestSubmission: dateNow, created_at: new Date(), updated_at: new Date()};
+                        Notify.create(obj);
+
+                    } catch(error) {
+
+                        console.log(error);
+
+                    }
                     
                 }
             }
+            return {body: "not null", status: 200};
         });
-
-        return {body: "", status: 200}
         
-    } catch(err) {
-        console.log(err);
+    } catch(error) {
+        console.log(error);
         return {body: "", status: 500}
     }
 }
 
-module.exports = AnalyzeDate;
+module.exports = {AnalyzeDate};

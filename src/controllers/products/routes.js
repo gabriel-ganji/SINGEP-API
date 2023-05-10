@@ -10,7 +10,7 @@ const Product = require("../../database/models/Product");
 
 //authToken
 const auth = require("../../middlewares/authJWT");
-const AnalyzeDate = require("./analyzeExpiry");
+const { AnalyzeDate } = require("./analyzeExpiry");
 const { registerProductHandler } = require("../../handlers/registerProductHandler");
 const { updateProductHandler } = require("../../handlers/updateProductHandler");
 const { deleteProductHandler } = require("../../handlers/deleteProductHandler");
@@ -51,9 +51,10 @@ routes.get("/product/:name", auth, async (req, res) => {
 
 });
 
-routes.get("/product/analyzeDate/whatsappOwner/:whatsapp", (req, res) => {
+routes.get("/product/analyzeDate/whatsappOwner/:whatsapp", async (req, res) => {
     const whatsapp = req.params.whatsapp;
-    const result = AnalyzeDate(whatsapp); 
+    const result = await AnalyzeDate(whatsapp);
+    console.log("Result: ", result);
     res.json(result);
 })
 

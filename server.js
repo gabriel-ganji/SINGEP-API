@@ -1,5 +1,15 @@
 const express = require("express");
 const app = express();
+const http = require("http").createServer(app);
+
+const io = require("socket.io")(http, {
+    cors: {
+        origin: "*",
+        methods: ["GET", "POST"],
+        allowedHeaders: ["my-custom-header"],
+        credentials: true
+      }
+  });
 
 //cors
 var cors = require('cors');
@@ -28,7 +38,7 @@ const authAccount = require("./src/handlers/authAccount");
 
 //whatsapp message sender
 const whatsappSender = require("./src/controllers/whatsapp/sendMessage");
-app.use("/singep", whatsappSender);
+app.use("/", whatsappSender);
 
 
 app.get("/", (req, res) => {
@@ -71,6 +81,21 @@ app.post("/signup", async (req, res) => {
     
 });
 
-app.listen(3033, () => {
+//Socket.io
+io.on("connection", (socket) => {
+    console.log("New connection: ", socket.id)
+    
+    socket.on("message", (data) => {
+        console.log(data);
+        socket.broadcast.emit("msg", {con: data});
+    });
+
+    socket.on("invalidProds", async (data) => {
+        await axios.get(`/product/analyzeDate/whatsappOwner/${data.whatsapp}`);
+    })
+
+});
+
+http.listen(3033, () => {
     console.log("Server running on port 3033.");
 });

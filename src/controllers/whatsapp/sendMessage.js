@@ -4,7 +4,7 @@ const Sender = require("../../services/whatsappMessageSender");
 
 const sender = new Sender();
 
-router.post("/sendWhatsappMessage", (req, res) => {
+router.post("/send", (req, res) => {
     
     const {number, message} = req.body;
 
