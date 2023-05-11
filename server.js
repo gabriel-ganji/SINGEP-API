@@ -1,6 +1,7 @@
 const express = require("express");
 const app = express();
 const http = require("http").createServer(app);
+const axios = require("axios");
 
 const io = require("socket.io")(http, {
     cors: {
@@ -21,9 +22,13 @@ const contactUsRoutes = require("./src/controllers/contactUs/contactUsRoute");
 //product routes
 const productRoutes = require("./src/controllers/products/routes");
 
+//Notify Routes
+const notifiesRoutes = require("./src/controllers/notify/notifyRoutes");
+
 // // 
 app.use("/singep", productRoutes);
 app.use("/singep", contactUsRoutes);
+app.use("/singep", notifiesRoutes);
 
 //body-parser
 const bodyParser = require("body-parser");
@@ -83,7 +88,7 @@ app.post("/signup", async (req, res) => {
 
 //Socket.io
 io.on("connection", (socket) => {
-    console.log("New connection: ", socket.id)
+    console.log("New connection: ", socket.id);
     
     socket.on("message", (data) => {
         console.log(data);
@@ -91,8 +96,9 @@ io.on("connection", (socket) => {
     });
 
     socket.on("invalidProds", async (data) => {
-        await axios.get(`/product/analyzeDate/whatsappOwner/${data.whatsapp}`);
-    })
+        console.log(data.whatsapp);
+        await axios.get(`http://localhost:3033/singep/product/analyzeDate/whatsappOwner/${data.whatsapp}`);
+    });
 
 });
 

@@ -56,7 +56,7 @@ routes.get("/product/analyzeDate/whatsappOwner/:whatsapp", async (req, res) => {
     const result = await AnalyzeDate(whatsapp);
     console.log("Result: ", result);
     res.json(result);
-})
+});
 
 routes.get("/product/lote/:lote", auth, async (req, res) => {
 

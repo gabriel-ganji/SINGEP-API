@@ -37,7 +37,9 @@ const AnalyzeDate = async (whatsapp) => {
 
                             let prodName = product.name;
                             let prodLote = product.lote;
-                            let obj = {whatsappOwner: whatsapp, prodName, prodLote, latestSubmission: dateNow, created_at: new Date(), updated_at: new Date()};
+                            let expiry = product.expiry;
+                            let total = product.totalun;
+                            let obj = {whatsappOwner: whatsapp, prodName, prodLote, expiry, total, latestSubmission: dateNow, created_at: new Date(), updated_at: new Date()};
                             Notify.create(obj);
                     
                         } catch (error) {

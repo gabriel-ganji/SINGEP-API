@@ -8,7 +8,6 @@ routes.post("/contactUs/message", async (req, res) => {
     let resp = await contactUsHandler(data);
     res.json("Menssagem enviada com sucesso. Entraremos em contato o mais breve possível.").status(200);
 
-
 });
 
 module.exports = routes;
