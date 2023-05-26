@@ -60,7 +60,7 @@ async function signupHandler(data) {
 
                         const number = `55${whatsapp}@c.us`;
                         const message = `Olá, ${name.toUpperCase()}. \nSeja bem-vindo(a) ao SINGEP. \n\nSeu código de confirmação é: ${codeConfirm}.`;
-                        axios.post("http://localhost:3033/send", {number: number, message: message});
+                        await axios.post("http://localhost:3033/send", {number: number, message: message});
                         
                         const created_at = Date.now();
                         const updated_at = Date.now();
