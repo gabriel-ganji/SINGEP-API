@@ -25,28 +25,32 @@ const AnalyzeDate = async (whatsapp) => {
 
             // const resultNotify = await Notify.find({"whatsappOwner": whatsapp});
             
+            await Notify.deleteMany({whatsappOwner: whatsapp});
+
             for (let product of products) {
                 
                 if (String(product.expiry) < dateNow) {
-                    await sendMessage(product);
-                
-                
-                let oldObjt = {whatsappOwner: whatsapp, prodName: product.name, prodLote: product.lote};
-                let prodName = product.name;
-                let prodLote = product.lote;
-                let expiry = product.expiry;
-                let total = product.totalun;
 
-                let obj = {whatsappOwner: whatsapp, prodName, prodLote, expiry, total, latestSubmission: dateNow, created_at: new Date(), updated_at: new Date()};
-                Notify.findOne(oldObjt).then((res) => {
+                    await sendMessage(product);
                     
-                    if(res){
-                        Notify.updateOne(oldObjt, {$set: {obj}});
-                    } else {
-                        Notify.create(obj);
-                    }
+                    let oldObjt = {whatsappOwner: whatsapp, prodName: product.name, prodLote: product.lote};
+                    let prodName = product.name;
+                    let prodLote = product.lote;
+                    let expiry = product.expiry;
+                    let total = product.totalun;
+
+                    let obj = {whatsappOwner: whatsapp, prodName, prodLote, expiry, total, latestSubmission: dateNow, created_at: new Date(), updated_at: new Date()};
                     
-                })
+                    Notify.findOne(oldObjt).then((res) => {
+                        
+                        if(res){
+                            Notify.updateOne(oldObjt, {$set: {obj}});
+                        } else {
+                            Notify.create(obj);
+                        }
+                        
+                    })
+
                 }
 
                 //     console.log(product);

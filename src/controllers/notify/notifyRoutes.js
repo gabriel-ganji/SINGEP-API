@@ -11,7 +11,27 @@ routes.get("/notifies/:whatsapp", async (req, res) => {
     try {
         
         let result = await Notify.find({whatsappOwner: whatsapp});
+       
+        result.map(async (prod) => {
 
+            const name = prod.prodName;
+            const lote = prod.prodLote;
+            
+            await Product.findOne({whatsappOwner: whatsapp, name, lote}).then(async(res) => {
+
+                if(!res){
+                    
+                    const prodName = prod.prodName;
+                    const prodLote = prod.prodLote;
+
+                    await Notify.deleteOne({whatsappOwner: whatsapp, prodName, prodLote});
+                    
+                }
+
+            });
+
+        })
+        
         res.json(result).status(200);
 
     } catch (error){
