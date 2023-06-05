@@ -10,6 +10,7 @@ const sendMessage = async (i) => {
     const number = `55${i.whatsappOwner}@c.us`;
 
     await axios.post("http://localhost:3033/send", {number: number, message: message});
+    return;
 
 }
 
@@ -21,62 +22,81 @@ const AnalyzeDate = async (whatsapp) => {
 
             let yourDate = new Date();
             const dateNow = yourDate.toISOString().split('T')[0];
-            let account = 0;
 
-            const resultNotify = await Notify.find({"whatsappOwner": whatsapp});
+            // const resultNotify = await Notify.find({"whatsappOwner": whatsapp});
             
             for (let product of products) {
                 
                 if (String(product.expiry) < dateNow) {
-                    console.log(product);
+                    await sendMessage(product);
+                
+                
+                let oldObjt = {whatsappOwner: whatsapp, prodName: product.name, prodLote: product.lote};
+                let prodName = product.name;
+                let prodLote = product.lote;
+                let expiry = product.expiry;
+                let total = product.totalun;
 
-                    if (resultNotify[0] == null) {
-                        console.log(resultNotify[account]);
-                        sendMessage(product);
-                        try {
-
-                            let prodName = product.name;
-                            let prodLote = product.lote;
-                            let expiry = product.expiry;
-                            let total = product.totalun;
-                            let obj = {whatsappOwner: whatsapp, prodName, prodLote, expiry, total, latestSubmission: dateNow, created_at: new Date(), updated_at: new Date()};
-                            Notify.create(obj);
+                let obj = {whatsappOwner: whatsapp, prodName, prodLote, expiry, total, latestSubmission: dateNow, created_at: new Date(), updated_at: new Date()};
+                Notify.findOne(oldObjt).then((res) => {
                     
-                        } catch (error) {
-                    
-                            console.log(error);
-                    
-                        }
-
+                    if(res){
+                        Notify.updateOne(oldObjt, {$set: {obj}});
                     } else {
-                        
-                        let notifyLatestSubmission = resultNotify[0].latestSubmission.toISOString().split('T')[0];
-                        console.log("else abaixo de let notify...");
-                        console.log(notifyLatestSubmission, dateNow);
-
-                        if(notifyLatestSubmission < dateNow){
-
-                            sendMessage(product);
-                            
-                            try {
-
-                                let prodName = product.name;
-                                let prodLote = product.lote;
-                                let obj = {whatsappOwner: whatsapp, prodName, prodLote};
-                                await Notify.updateOne(obj, {$set: {latestSubmission: dateNow}});
-                        
-                            } catch(error) {
-                        
-                                console.log(error);
-                        
-                            }
-
-                        }
-
+                        Notify.create(obj);
                     }
                     
+                })
                 }
-                account++;
+
+                //     console.log(product);
+
+                //     if (resultNotify[0] == null) {
+                //         console.log(resultNotify[account]);
+                //         await sendMessage(product);
+                //         try {
+
+                //             let prodName = product.name;
+                //             let prodLote = product.lote;
+                //             let expiry = product.expiry;
+                //             let total = product.totalun;
+                //             let obj = {whatsappOwner: whatsapp, prodName, prodLote, expiry, total, latestSubmission: dateNow, created_at: new Date(), updated_at: new Date()};
+                //             Notify.create(obj);
+                    
+                //         } catch (error) {
+                    
+                //             console.log(error);
+                    
+                //         }
+
+                //     } else {
+                        
+                //         let notifyLatestSubmission = resultNotify[0].latestSubmission.toISOString().split('T')[0];
+                //         console.log("else abaixo de let notify...");
+                //         console.log(notifyLatestSubmission, dateNow);
+
+                //         if(notifyLatestSubmission < dateNow){
+
+                //             await sendMessage(product);
+                            
+                //             try {
+
+                //                 let prodName = product.name;
+                //                 let prodLote = product.lote;
+                //                 let obj = {whatsappOwner: whatsapp, prodName, prodLote};
+                //                 await Notify.updateOne(obj, {$set: {latestSubmission: dateNow}});
+                        
+                //             } catch(error) {
+                        
+                //                 console.log(error);
+                        
+                //             }
+
+                //         }
+
+                //     }
+                    
+                // }
             }
 
             return {body: "not null", status: 200};
