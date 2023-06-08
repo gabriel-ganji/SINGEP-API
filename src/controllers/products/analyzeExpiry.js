@@ -9,7 +9,7 @@ const sendMessage = async (i) => {
     const message = `Olá. O produto *${i.name}* do lote *${i.lote}* venceu! Você tem *${i.totalun}* unidades vencidas deste produto, certifique-se de tirá-los de circulação.`;
     const number = `55${i.whatsappOwner}@c.us`;
 
-    await axios.post("http://localhost:3033/send", {number: number, message: message});
+    await axios.post("http://localhost:5454/send", {number: number, message: message});
     return;
 
 }
@@ -53,54 +53,6 @@ const AnalyzeDate = async (whatsapp) => {
 
                 }
 
-                //     console.log(product);
-
-                //     if (resultNotify[0] == null) {
-                //         console.log(resultNotify[account]);
-                //         await sendMessage(product);
-                //         try {
-
-                //             let prodName = product.name;
-                //             let prodLote = product.lote;
-                //             let expiry = product.expiry;
-                //             let total = product.totalun;
-                //             let obj = {whatsappOwner: whatsapp, prodName, prodLote, expiry, total, latestSubmission: dateNow, created_at: new Date(), updated_at: new Date()};
-                //             Notify.create(obj);
-                    
-                //         } catch (error) {
-                    
-                //             console.log(error);
-                    
-                //         }
-
-                //     } else {
-                        
-                //         let notifyLatestSubmission = resultNotify[0].latestSubmission.toISOString().split('T')[0];
-                //         console.log("else abaixo de let notify...");
-                //         console.log(notifyLatestSubmission, dateNow);
-
-                //         if(notifyLatestSubmission < dateNow){
-
-                //             await sendMessage(product);
-                            
-                //             try {
-
-                //                 let prodName = product.name;
-                //                 let prodLote = product.lote;
-                //                 let obj = {whatsappOwner: whatsapp, prodName, prodLote};
-                //                 await Notify.updateOne(obj, {$set: {latestSubmission: dateNow}});
-                        
-                //             } catch(error) {
-                        
-                //                 console.log(error);
-                        
-                //             }
-
-                //         }
-
-                //     }
-                    
-                // }
             }
 
             return {body: "not null", status: 200};

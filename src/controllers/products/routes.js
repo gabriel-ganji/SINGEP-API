@@ -31,6 +31,7 @@ routes.get("/products/product/:whatsapp", async (req, res) => {
         res.json("Erro no servidor. Por favor tente de novo mais tarde").status(500);
 
     }
+
 });
 
 routes.get("/product/:name", auth, async (req, res) => {
@@ -70,10 +71,13 @@ routes.get("/product/:name/:lote", async (req, res) => {
 });
 
 routes.get("/product/analyzeDate/whatsappOwner/:whatsapp", async (req, res) => {
+
     const whatsapp = req.params.whatsapp;
+    
     const result = await AnalyzeDate(whatsapp);
-    console.log("Result: ", result);
+    
     res.json(result);
+
 });
 
 routes.get("/product/lote/:lote", auth, async (req, res) => {
